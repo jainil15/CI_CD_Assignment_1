@@ -16,7 +16,7 @@ terraform {
 }
 
 provider "aws" {
-  region = "ap-south-1"
+  region = var.aws_region
 }
 
 locals {
@@ -94,6 +94,6 @@ module "instance" {
       ipv6_cidr_blocks = ["::/0"]
     }
   ]
-  private_key = file("./mykeypair.pem")
-  user_data = file("./docker_installation.sh")
+  private_key = var.private_key
+  user_data   = file("./docker_installation.sh")
 }

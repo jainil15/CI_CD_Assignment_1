@@ -8,6 +8,9 @@ on:
 jobs:
   terrafom:
     runs-on: ubuntu-latest
+    env:
+      TF_VAR_private_key: ${{ secrets.AWS_KEYPAIR }}
+
     steps:
       - name: Docker Checkout
         uses: actions/checkout@v3
@@ -22,6 +25,24 @@ jobs:
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/nginx-assignment .
           docker push ${{ secrets.DOCKER_USERNAME }}/nginx-assignment
+
+      - name: Terraform setup
+        uses: hashicorp/setup-terraform@v3
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4.0.2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform plan
+        run: terraform plan -no-color
 
       - name: SSH to AWS Instance and Pull Image
         uses: appleboy/ssh-action@master
