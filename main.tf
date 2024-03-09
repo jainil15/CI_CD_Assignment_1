@@ -2,7 +2,6 @@ terraform {
   backend "remote" {
     # hostname     = "app.terraform.io"
     organization = "Jainil-Org"
-
     workspaces {
       name = "ForAssignment"
     }
