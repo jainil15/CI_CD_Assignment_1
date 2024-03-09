@@ -3,7 +3,7 @@ on:
   push:
     branches: ["master"]
   pull_request:
-    branches: ["master"]
+    branches: ["master" ]
 
 jobs:
   terrafom:
@@ -74,7 +74,7 @@ jobs:
                 sleep 10
               done
               echo "Port 22 on host 3.110.170.185 is now open."
-              
+
       - name: SSH to AWS Instance and Pull Image
         uses: appleboy/ssh-action@master
         with:
