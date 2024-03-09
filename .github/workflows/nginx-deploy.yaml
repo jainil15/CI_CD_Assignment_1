@@ -37,7 +37,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Terraform Init
-        run: terraform init -backend-config="bucket=${{ secrets.S3_BACKEND_NAME }}" -backend-config="region=${{ secrets.AWS_REGION }}" -backend-config="encrypt=true" -backend-config="profile=${{ secrets.BACKEND_PROFILE }}" -backend-config="dynamodb_table=${{ secrets.BACKEND_DYNAMODB }}" -backend-config="key=${{ secrets.BACKEND_KEY }}" -backend-config="role_arn=${{ secrets.ROLE_ARN }}"
+        run: terraform init -backend-config="bucket=${{ secrets.S3_BACKEND_NAME }}" -backend-config="region=${{ secrets.AWS_REGION }}" -backend-config="encrypt=true" -backend-config="profile=${{ secrets.BACKEND_PROFILE }}" -backend-config="dynamodb_table=${{ secrets.BACKEND_DYNAMODB }}" -backend-config="key=${{ secrets.BACKEND_KEY }}" -backend-config="assume_role.role_arn=${{ secrets.ROLE_ARN }}"
 
       - name: Terraform Plan
         env:
