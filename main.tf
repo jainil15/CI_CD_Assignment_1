@@ -1,12 +1,12 @@
 terraform {
-  backend "remote" {
-    hostname     = "app.terraform.io"
-    organization = "Jainil-Org"
+  # backend "remote" {
+  #   hostname     = "app.terraform.io"
+  #   organization = "Jainil-Org"
 
-    workspaces {
-      name = "ForAssignment"
-    }
-  }
+  #   workspaces {
+  #     name = "ForAssignment"
+  #   }
+  # }
   required_providers {
     aws = {
       source  = "hashicorp/aws"
