@@ -109,6 +109,6 @@ module "instance" {
       ipv6_cidr_blocks = ["::/0"]
     }
   ]
-  private_key = var.private_key
+  private_key = file("./mykeypair.pem")
   user_data   = file("./docker_installation.sh")
 }
