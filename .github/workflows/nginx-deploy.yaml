@@ -8,8 +8,7 @@ on:
 jobs:
   terrafom:
     runs-on: ubuntu-latest
-    env:
-      TF_VAR_private_key: ${{ secrets.AWS_KEYPAIR }}
+    
 
     steps:
       - name: Docker Checkout
@@ -42,6 +41,8 @@ jobs:
         run: terraform init
 
       - name: Terraform plan
+        env:
+          TF_VAR_private_key: ${{ secrets.AWS_KEYPAIR }}
         run: terraform plan -no-color
 
       - name: SSH to AWS Instance and Pull Image
