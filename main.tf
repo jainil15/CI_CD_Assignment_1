@@ -51,6 +51,9 @@ data "aws_ami" "ubuntu_ami" {
   }
 }
 
+data "http" "myip" {
+  url = "https://ipv4.icanhazip.com"
+}
 module "vpc" {
 
   source                    = "app.terraform.io/Jainil-Org/vpc/aws"
@@ -77,7 +80,7 @@ module "instance" {
       from_port   = 22
       to_port     = 22
       protocol    = "tcp"
-      cidr_blocks = ["106.213.202.235/32"]
+      cidr_blocks = ["${chomp(data.http.myip.response_body)}/32"]
     },
     {
       from_port        = 80

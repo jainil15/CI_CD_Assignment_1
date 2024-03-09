@@ -8,7 +8,6 @@ on:
 jobs:
   terrafom:
     runs-on: ubuntu-latest
-    
 
     steps:
       - name: Docker Checkout
@@ -40,16 +39,26 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      - name: Terraform plan
+      - name: Terraform Plan
         env:
           TF_VAR_private_key: ${{ secrets.AWS_KEYPAIR }}
           TF_VAR_aws_region: ${{ secrets.AWS_REGION }}
         run: terraform plan -no-color
 
+      - name: Terraform Apply
+        env:
+          TF_VAR_private_key: ${{ secrets.AWS_KEYPAIR }}
+          TF_VAR_aws_region: ${{ secrets.AWS_REGION }}
+        run: terraform apply -auto-approve
+
+      - name: Terraform output
+        id: terraform_output
+        run: echo "::set-output name=public_instance_ip::$(terraform output public_instance_ip)"
+
       - name: SSH to AWS Instance and Pull Image
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.AWS_HOST }}
+          host: ${{ steps.terraform_output.outputs.public_instance_ip }}
           username: ${{ secrets.AWS_USERNAME }}
           key: ${{ secrets.AWS_KEYPAIR }}
           script: |
