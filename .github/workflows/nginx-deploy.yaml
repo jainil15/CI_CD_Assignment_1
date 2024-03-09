@@ -1,0 +1,33 @@
+name: "Nginx Deployment"
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  terrafom:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Docker Checkout
+        uses: actions/checkout@v3
+
+      - name: Docker Login
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Docker Build
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/nginx-assignment .
+          docker push ${{ secrets.DOCKER_USERNAME }}/nginx-assignment
+
+      - name: SSH to AWS Instance and Pull Image
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.AWS_HOST }}
+          username: ${{ secrets.AWS_USERNAME }}
+          key: ${{ secrets.AWS_KEYPAIR }}
+          run: |
+            docker run -d -p 80:80 ${{secrets.DOCKER_USERNAME}}/nginx-assignment
