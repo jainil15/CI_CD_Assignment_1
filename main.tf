@@ -1,14 +1,14 @@
 terraform {
-  # backend "remote" {
-  #   hostname     = "app.terraform.io"
-  #   organization = "Jainil-Org"
+  backend "remote" {
+    hostname     = "app.terraform.io"
+    organization = "Jainil-Org"
 
-  #   workspaces {
-  #     name = "ForAssignment"
-  #   }
-  # }
+    workspaces {
+      name = "ForAssignment"
+    }
+  }
 
-  backend "s3" {
+  # backend "s3" {
     # bucket  = var.s3_bucket_backend_name
     # region  = var.region
     # encrypt = true
@@ -19,7 +19,7 @@ terraform {
 
     # dynamodb_table = var.dynamodb_table
     # key            = var.backend_key
-  }
+  # }
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -93,7 +93,8 @@ module "instance" {
       from_port   = 22
       to_port     = 22
       protocol    = "tcp"
-      cidr_blocks = ["${chomp(data.http.myip.response_body)}/32"]
+      # cidr_blocks = ["${chomp(data.http.myip.response_body)}/32"]
+      cidr_blocks = [var.my_ip]
     },
     {
       from_port        = 80
