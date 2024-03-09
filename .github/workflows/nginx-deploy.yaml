@@ -3,7 +3,7 @@ on:
   push:
     branches: ["master"]
   pull_request:
-    branches: ["master" ]
+    branches: ["master"]
 
 jobs:
   terrafom:
@@ -66,14 +66,14 @@ jobs:
 
       - name: Echo output
         run: echo ${{ steps.terraform_output.outputs.public_instance_ip }} | xargs
-      
+
       - name: Wait for Port Open
         run: |
-          while ! nc -zv 3.110.170.185 22; do
-            echo "Waiting for port 22 on host 3.110.170.185 to be open..."
+          while ! nc -zv ${{ steps.terraform_output.outputs.public_instance_ip }} 22; do
+            echo "Waiting for port 22 on host ${{ steps.terraform_output.outputs.public_instance_ip }} to be open..."
             sleep 10
           done
-          echo "Port 22 on host 3.110.170.185 is now open."
+          echo "Port 22 on host ${{ steps.terraform_output.outputs.public_instance_ip }} is now open."
 
       - name: SSH to AWS Instance and Pull Image
         uses: appleboy/ssh-action@master
