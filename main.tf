@@ -9,16 +9,16 @@ terraform {
   }
 
   # backend "s3" {
-    # bucket  = var.s3_bucket_backend_name
-    # region  = var.region
-    # encrypt = true
-    # profile = var.backend_profile
-    # assume_role = {
-    #   role_arn = var.role_arn
-    # }
+  # bucket  = var.s3_bucket_backend_name
+  # region  = var.region
+  # encrypt = true
+  # profile = var.backend_profile
+  # assume_role = {
+  #   role_arn = var.role_arn
+  # }
 
-    # dynamodb_table = var.dynamodb_table
-    # key            = var.backend_key
+  # dynamodb_table = var.dynamodb_table
+  # key            = var.backend_key
   # }
   required_providers {
     aws = {
@@ -90,11 +90,11 @@ module "instance" {
   vpc_id             = module.vpc.vpc_id
   public_sg_ingress_with_cidr_blocks = [
     {
-      from_port   = 22
-      to_port     = 22
-      protocol    = "tcp"
+      from_port = 22
+      to_port   = 22
+      protocol  = "tcp"
       # cidr_blocks = ["${chomp(data.http.myip.response_body)}/32"]
-      cidr_blocks = [var.my_ip]
+      cidr_blocks = ["${var.my_ip}/32"]
     },
     {
       from_port        = 80
