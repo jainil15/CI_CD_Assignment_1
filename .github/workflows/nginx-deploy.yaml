@@ -43,12 +43,15 @@ jobs:
         env:
           TF_VAR_private_key: ${{ secrets.AWS_KEYPAIR }}
           TF_VAR_aws_region: ${{ secrets.AWS_REGION }}
+          TF_VAR_s3_bucket_backend_name: ${{ secrets.S3_BACKEND_NAME }}
+          TF_VAR_backend_profile: ${{ secrets.BACKEND_PROFILE }}
+          TF_VAR_role_arn: ${{ secrets.ROLE_ARN }}
+          TF_VAR_dynamodb_table: ${{ secrets.BACKEND_DYNAMODB }}
+          TF_VAR_backend_key: ${{ secrets.BACKEND_KEY }}
+        
         run: terraform plan -no-color
 
       - name: Terraform Apply
-        env:
-          TF_VAR_private_key: ${{ secrets.AWS_KEYPAIR }}
-          TF_VAR_aws_region: ${{ secrets.AWS_REGION }}
         run: terraform apply -auto-approve
 
       - name: Terraform output
