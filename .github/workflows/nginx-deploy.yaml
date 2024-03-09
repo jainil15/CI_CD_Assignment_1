@@ -74,4 +74,6 @@ jobs:
           username: ${{ secrets.AWS_USERNAME }}
           key: ${{ secrets.AWS_KEYPAIR }}
           script: |
-            sudo docker run -d -p 80:80 --restart unless-stopped ${{ secrets.DOCKER_USERNAME }}/nginx-assignment
+            sudo docker stop nginx_container
+            sudo docker rm nginx_container
+            sudo docker run -d -p 80:80 --restart unless-stopped --name nginx_container ${{ secrets.DOCKER_USERNAME }}/nginx-assignment
