@@ -62,7 +62,7 @@ jobs:
       - name: Terraform output
         id: terraform_output
         run: |
-          echo "::set-output name=public_instance_ip::$(terraform output public_instance_ip)"
+          echo "::set-output name=public_instance_ip::$(terraform output public_instance_ip | sed -e 's/^"//' -e 's/"$//')"
 
       - name: Echo output
         run: echo ${{ steps.terraform_output.outputs.public_instance_ip }} | xargs
