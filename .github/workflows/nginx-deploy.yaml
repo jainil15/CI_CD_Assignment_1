@@ -38,24 +38,18 @@ jobs:
 
       - name: Terraform Init
         run: terraform init \
-          -backend-config="bucket=${{ secrets.S3_BACKEND_NAME }}" \
-          -backend-config="region=${{ secrets.AWS_REGION }}" \
-          -backend-config="encrypt=true" \
-          -backend-config="profile=${{ secrets.BACKEND_PROFILE }}" \
-          -backend-config="dynamodb_table=${{ secrets.BACKEND_DYNAMODB }}" \
-          -backend-config="key=${{ secrets.BACKEND_KEY }}" \
-          -backend-config="role_arn=${{ secrets.ROLE_ARN }}"
+          -backend-config="bucket=${{ secrets.S3_BACKEND_NAME }}" -backend-config="region=${{ secrets.AWS_REGION }}" -backend-config="encrypt=true" -backend-config="profile=${{ secrets.BACKEND_PROFILE }}" -backend-config="dynamodb_table=${{ secrets.BACKEND_DYNAMODB }}" -backend-config="key=${{ secrets.BACKEND_KEY }}" -backend-config="role_arn=${{ secrets.ROLE_ARN }}"
 
       - name: Terraform Plan
         env:
           TF_VAR_private_key: ${{ secrets.AWS_KEYPAIR }}
           TF_VAR_aws_region: ${{ secrets.AWS_REGION }}
-          # TF_VAR_s3_bucket_backend_name: 
-          # TF_VAR_backend_profile: 
-          # TF_VAR_role_arn: 
-          # TF_VAR_dynamodb_table: 
-          # TF_VAR_backend_key: 
-        
+          # TF_VAR_s3_bucket_backend_name:
+          # TF_VAR_backend_profile:
+          # TF_VAR_role_arn:
+          # TF_VAR_dynamodb_table:
+          # TF_VAR_backend_key:
+
         run: terraform plan -no-color
 
       - name: Terraform Apply

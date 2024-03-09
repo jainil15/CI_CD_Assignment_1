@@ -9,16 +9,16 @@ terraform {
   # }
 
   backend "s3" {
-    bucket  = var.s3_bucket_backend_name
-    region  = var.region
-    encrypt = true
-    profile = var.backend_profile
-    assume_role = {
-      role_arn = var.role_arn
-    }
+    # bucket  = var.s3_bucket_backend_name
+    # region  = var.region
+    # encrypt = true
+    # profile = var.backend_profile
+    # assume_role = {
+    #   role_arn = var.role_arn
+    # }
 
-    dynamodb_table = var.dynamodb_table
-    key            = var.backend_key
+    # dynamodb_table = var.dynamodb_table
+    # key            = var.backend_key
   }
   required_providers {
     aws = {
