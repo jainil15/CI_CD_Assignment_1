@@ -67,7 +67,7 @@ module "vpc" {
 
 module "instance" {
   source  = "app.terraform.io/Jainil-Org/instance/aws"
-  version = "1.0.2"
+  version = "1.0.3"
   env     = local.env
   // ami_id             = data.aws_ami.ubuntu_ami.id
   ami_id             = "ami-03bb6d83c60fc5f7c"
