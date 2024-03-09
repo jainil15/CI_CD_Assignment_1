@@ -41,9 +41,8 @@ jobs:
         run: echo "::set-output name=my_ip::$(curl https://ipv4.icanhazip.com/)"
 
       - name: Terraform Init
-        run: terraform init 
-# -backend-config="bucket=${{ secrets.S3_BACKEND_NAME }}" -backend-config="region=${{ secrets.AWS_REGION }}" -backend-config="encrypt=true" -backend-config="profile=${{ secrets.BACKEND_PROFILE }}" -backend-config="role_arn=${{ secrets.ROLE_ARN }}" -backend-config="dynamodb_table=${{ secrets.BACKEND_DYNAMODB }}" -backend-config="key=${{ secrets.BACKEND_KEY }}"
-
+        run: terraform init
+      # -backend-config="bucket=${{ secrets.S3_BACKEND_NAME }}" -backend-config="region=${{ secrets.AWS_REGION }}" -backend-config="encrypt=true" -backend-config="profile=${{ secrets.BACKEND_PROFILE }}" -backend-config="role_arn=${{ secrets.ROLE_ARN }}" -backend-config="dynamodb_table=${{ secrets.BACKEND_DYNAMODB }}" -backend-config="key=${{ secrets.BACKEND_KEY }}"
 
       - name: Terraform Plan
         env:
@@ -58,7 +57,7 @@ jobs:
           TF_VAR_private_key: ${{ secrets.AWS_KEYPAIR }}
           TF_VAR_aws_region: ${{ secrets.AWS_REGION }}
           TF_VAR_my_ip: ${{ steps.get_my_ip.outputs.my_ip }}
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve -var="private_key=${{ secrets.AWS_KEYPAIR }}" -var="aws_region=${{ secrets.AWS_REGION }}" -var="my_ip=${{ steps.get_my_ip.outputs.my_ip }}"
 
       - name: Terraform output
         id: terraform_output
