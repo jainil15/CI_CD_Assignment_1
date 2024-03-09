@@ -30,4 +30,4 @@ jobs:
           username: ${{ secrets.AWS_USERNAME }}
           key: ${{ secrets.AWS_KEYPAIR }}
           run: |
-            docker run -d -p 80:80 ${{secrets.DOCKER_USERNAME}}/nginx-assignment
+            sudo docker run -d -p 80:80 ${{ secrets.DOCKER_USERNAME }}/nginx-assignment

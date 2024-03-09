@@ -77,7 +77,7 @@ module "instance" {
       from_port   = 22
       to_port     = 22
       protocol    = "tcp"
-      cidr_blocks = ["120.42.44.12/32"]
+      cidr_blocks = ["106.213.202.235/32"]
     },
     {
       from_port        = 80
@@ -95,4 +95,5 @@ module "instance" {
     }
   ]
   private_key = file("./mykeypair.pem")
+  user_data = file("./docker_installation.sh")
 }
