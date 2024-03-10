@@ -80,10 +80,11 @@ jobs:
           key: ${{ secrets.AWS_KEYPAIR }}
           script: |
             
-            while ! dpkg-query -W -f='${Status}' docker 2>/dev/null | grep -q "install ok installed"; do
+            while  dpkg-query -W -f='${Status}' docker 2>/dev/null | grep -q "install ok installed"; do
               echo "Docker not installed please wait..."  
               sleep 10
             done
             sudo docker stop nginx_container
             sudo docker rm nginx_container
             sudo docker run -d -p 80:80 --restart unless-stopped --name nginx_container ${{ secrets.DOCKER_USERNAME }}/nginx-assignment
+# echo "{name}={value}" >> $GITHUB_OUTPUT
