@@ -79,7 +79,6 @@ jobs:
           username: ${{ secrets.AWS_USERNAME }}
           key: ${{ secrets.AWS_KEYPAIR }}
           script: |
-            
             while  dpkg-query -W -f='${Status}' docker 2>/dev/null | grep -q "install ok installed"; do
               echo "Docker not installed please wait..."  
               sleep 10
