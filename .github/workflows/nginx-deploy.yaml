@@ -3,7 +3,7 @@ on:
   push:
     branches: ["master"]
   pull_request:
-    branches: ["master" ]
+    branches: ["master"]
 
 jobs:
   terrafom:
@@ -38,7 +38,7 @@ jobs:
 
       - name: Get MY IP
         id: get_my_ip
-        run: echo "::set-output name=my_ip::$(curl https://ipv4.icanhazip.com/)"
+        run: echo "my_ip=$(curl https://ipv4.icanhazip.com/)" >> $GITHUB_OUTPUT
 
       - name: Terraform Init
         run: terraform init
@@ -62,7 +62,7 @@ jobs:
       - name: Terraform output
         id: terraform_output
         run: |
-          echo "::set-output name=public_instance_ip::$(terraform output public_instance_ip | sed -e 's/^"//' -e 's/"$//')"
+          echo "public_instance_ip=$(terraform output public_instance_ip | sed -e 's/^"//' -e 's/"$//')" >> $GITHUB_OUTPUT
 
       - name: Wait for Port Open
         run: |
