@@ -1,7 +1,7 @@
 name: "Nginx Deployment"
 on:
   push:
-    branches: ["master" ]
+    branches: ["master"]
   pull_request:
     branches: ["master"]
 
@@ -79,11 +79,13 @@ jobs:
           username: ${{ secrets.AWS_USERNAME }}
           key: ${{ secrets.AWS_KEYPAIR }}
           script: |
-            while  dpkg-query -W -f='${Status}' docker 2>/dev/null | grep -q "install ok installed"; do
-              echo "Docker not installed please wait..."  
+            while ! dpkg -l | grep -q docker; do
+              echo "Docker is not installed yet. Waiting..."
               sleep 10
             done
+            echo "Docker is installed"
             sudo docker stop nginx_container
             sudo docker rm nginx_container
             sudo docker run -d -p 80:80 --restart unless-stopped --name nginx_container ${{ secrets.DOCKER_USERNAME }}/nginx-assignment
+
 # echo "{name}={value}" >> $GITHUB_OUTPUT
