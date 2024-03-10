@@ -1,24 +1,12 @@
 terraform {
   backend "remote" {
-    # hostname     = "app.terraform.io"
+    hostname     = "app.terraform.io"
     organization = "Jainil-Org"
     workspaces {
       name = "ForAssignment"
     }
   }
 
-  # backend "s3" {
-  #   bucket  = "jainil-terraform-assignment-2-backend"
-  #   region  = "ap-south-1"
-  #   encrypt = true
-  #   profile = "terra-user"
-  #   assume_role = {
-  #     role_arn = "arn:aws:iam::171358186705:role/terraform"
-  #   }
-
-  #   dynamodb_table = "jainil-terraform-lock-table"
-  #   key            = "assignment-1/test/terraform.tfstate"
-  # }
   required_providers {
     aws = {
       source  = "hashicorp/aws"
