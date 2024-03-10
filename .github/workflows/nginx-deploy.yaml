@@ -84,6 +84,7 @@ jobs:
               sleep 10
             done
             echo "Docker is installed"
+            sleep 10
             sudo docker stop nginx_container
             sudo docker rm nginx_container
             sudo docker run -d -p 80:80 --restart unless-stopped --name nginx_container ${{ secrets.DOCKER_USERNAME }}/nginx-assignment
