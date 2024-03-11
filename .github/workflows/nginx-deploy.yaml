@@ -6,12 +6,15 @@ on:
     branches: ["dev"]
 
 jobs:
-  
   terrafom:
-    runs-on: ubuntu-latest  
+    runs-on: ubuntu-latest
     steps:
       - name: Docker Checkout
         uses: actions/checkout@v4
+      - name: Infra Checkout
+        uses: actions/checkout@v4
+        with:
+          repository: "CI_CD_Assignment_1_Infrastructure"
 
       - name: Docker Login
         uses: docker/login-action@v3
