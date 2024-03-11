@@ -27,7 +27,7 @@ jobs:
 
       - name: Get MY IP
         id: get_my_ip
-        run: echo "::set-output name=my_ip::$(curl https://ipv4.icanhazip.com/)"
+        run: echo "my_ip=$(curl https://ipv4.icanhazip.com/)" >> $GITHUB_OUTPUT
 
       - name: Terraform Init
         run: terraform init
