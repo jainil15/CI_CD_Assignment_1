@@ -30,10 +30,9 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      - name: Terraform destroy
+      - name: Terraform Destroy
         env:
           TF_VAR_private_key: ${{ secrets.AWS_KEYPAIR }}
           TF_VAR_aws_region: ${{ secrets.AWS_REGION }}
           TF_VAR_my_ip: ${{ steps.get_my_ip.outputs.my_ip }}
-
         run: terraform destroy -auto-approve
