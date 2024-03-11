@@ -8,8 +8,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Github Checkout
-        uses: actions/checkout@v3
+      - name: Infra Checkout
+        uses: actions/checkout@v4
+        with:
+          repository: "jainil15/${{ secrets.INFRA_REPO }}"
 
       - name: Terraform setup
         uses: hashicorp/setup-terraform@v3
