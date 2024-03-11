@@ -2,8 +2,10 @@ name: "Nginx Deployment"
 on:
   push:
     branches: ["dev"]
+    paths-ignore: ["**/README.md", "**/Assignment_1.pdf"]
   pull_request:
     branches: ["dev"]
+    paths-ignore: ["**/README.md", "**/Assignment_1.pdf"]
 
 jobs:
   terrafom:
