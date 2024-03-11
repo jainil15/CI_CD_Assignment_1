@@ -11,10 +11,7 @@ jobs:
     steps:
       - name: Docker Checkout
         uses: actions/checkout@v4
-      - name: Infra Checkout
-        uses: actions/checkout@v4
-        with:
-          repository: "jainil15/CI_CD_Assignment_1_Infrastructure"
+      
 
       - name: Docker Login
         uses: docker/login-action@v3
@@ -26,7 +23,11 @@ jobs:
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/nginx-assignment:${{ github.sha }} .
           docker push ${{ secrets.DOCKER_USERNAME }}/nginx-assignment:${{ github.sha }}
-
+          
+      - name: Infra Checkout
+        uses: actions/checkout@v4
+        with:
+          repository: "jainil15/CI_CD_Assignment_1_Infrastructure"
       - name: Terraform setup
         uses: hashicorp/setup-terraform@v3
         with:
